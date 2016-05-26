@@ -1,0 +1,26 @@
+{
+    "name": "gitbook-plugin-bulk-redirect",
+    "description": "GitBook plugin to setup bulk redirects",
+    "main": "index.js",
+    "version": "0.1.0",
+    "engines": {
+        "gitbook": ">=3.0.0-pre.0"
+    },
+    "homepage": "https://github.com/kaustavdm/gitbook-plugin-bulk-redirect",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/kaustavdm/gitbook-plugin-bulk-redirect.git"
+    },
+    "license": "Apache 2",
+    "bugs": {
+        "url": "https://github.com/kaustavdm/gitbook-plugin-bulk-redirect/issues"
+    },
+    "keywords": [
+        "gitbook",
+        "plugin"
+    ],
+    "author": {
+        "name": "Kaustav Das Modak",
+        "email": "kaustav.dasmodak@yahoo.co.in"
+    }
+}
