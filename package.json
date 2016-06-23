@@ -2,7 +2,7 @@
     "name": "gitbook-plugin-bulk-redirect",
     "description": "GitBook plugin to setup bulk redirects",
     "main": "index.js",
-    "version": "0.1.1",
+    "version": "0.2.0",
     "engines": {
         "gitbook": ">=3.0.0-pre.0"
     },
