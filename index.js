@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+var url = require("url");
+
 var content = function(path) {
   var s = "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>Redirecting... Page moved</title>" +
         "<link rel='canonical' href='{}'><meta http-equiv=refresh content='0; url={:?}'></head>" +
@@ -24,17 +26,22 @@ var content = function(path) {
   return s.replace(/\{\}/gm, path).replace(/\{\:\?\}/gm, encodeURI(path));
 };
 
+
 module.exports = {
   hooks: {
     "finish": function() {
-      var redirects = this.config.get("redirects");
-      if (!redirects) return;
+      var conf = this.config.get("pluginsConfig.bulk-redirect");
 
+      if (!conf || !conf.redirects) return;
+
+      var basepath = conf.basepath || "/";
       var g = this;
-      redirects.forEach(function (item) {
+
+      conf.redirects.forEach(function (item) {
         if (!item.from || !item.to) return;
-        g.output.writeFile(item.from, content(item.to));
-        g.log.debug("Redirect " + item.from + " -> " + item.to);
+        var resolved = url.resolve(basepath, item.to);
+        g.output.writeFile(item.from, content(resolved));
+        g.log.debug("Redirect " + item.from + " -> " + resolved + "\n");
       });
     }
   }

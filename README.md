@@ -16,24 +16,60 @@ Add this to your `book.json` plugin list:
 
 ## Usage
 
-Create a `redirects` property in `book.json` that contains an array of objects. Each object has 2 important keys: `from` and `to`.
+Configuration for this plugin is specified in `book.json` in the `pluginsConfig` object, with the key `bulk-redirect`. There are two important configuration options for this plugin (discussed below): `basepath` and `redirects`.
 
-- **`from`**: This key should contain the URL of the old HTML, relative to the root of the book output.
-- **`to`**: This key should contain the URL of the new HTML, relative to the `from` file.
+```json
+"pluginsConfig": {
+    "bulk-redirect": {
+        "basepath": "/",
+        "redirects": []
+    }
+}
+```
+
+### basepath
+
+`basepath` is a string containing a path against which the `to` URLs in the `redirects` list are resolved. It can be used to specify path to the directory in which the compiled book will be hosted, relative to the root of the domain. E.g., if the book is to be hosted at `http://example.com/book/`, then set the value of `basepath` to `/book/`. The trailing slash is necessary to ensure URLs resolve properly.
+
+If the book is hosted at the root of the domain, e.g. `http://example.com/`, then you can leave this unspecified.
 
 **For example:**
 
 ```json
-"redirects": [
-    {
-        "from": "oldpage.html",
-        "to": "newpage.html"
-    },
-    {
-        "from": "olddir/oldpage.html",
-        "to": "../newdir/newpage.html"
-    },
-]
+"pluginsConfig": {
+    "bulk-redirect": {
+        "basepath": "/user/current/",
+        "redirects": []
+    }
+}
 ```
+
+### redirects
+
+The `redirects` contains an array of objects. Each object has 2 important keys: `from` and `to`.
+
+- **`from`**: This key should contain the URL of the old HTML, relative to the root of the book output.
+- **`to`**: This key should contain the URL of the new HTML, relative to the root of the book output. If a `basepath` is provided, it is used to resolve the URL given in `to`.
+
+**For example:**
+
+```json
+"pluginsConfig": {
+    "bulk-redirect": {
+        "basepath": "/",
+        "redirects": [
+            {
+                "from": "oldpage.html",
+                "to": "newpage.html"
+            },
+            {
+                "from": "olddir/oldpage.html",
+                "to": "newdir/newpage.html"
+            },
+        ]
+    }
+}
+```
+
 
 This will create the pages `oldpage.html` and `olddir/oldpage.html` in the output and they will redirect to `/newpage.html` and `/newdir/newpage.html` respectively.
