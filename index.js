@@ -15,6 +15,7 @@
  */
 
 var url = require("url");
+var fs = require("fs");
 
 var content = function(path) {
   var s = "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>Redirecting... Page moved</title>" +
@@ -30,11 +31,12 @@ var content = function(path) {
 module.exports = {
   hooks: {
     "finish": function() {
-      var conf = this.config.get("pluginsConfig.bulk-redirect");
+      var redirectConf = this.config.get("pluginsConfig.bulk-redirect");
+      var conf = JSON.parse(fs.readFileSync(redirectConf.redirectsFile, "utf-8"));
 
       if (!conf || !conf.redirects) return;
 
-      var basepath = conf.basepath || "/";
+      var basepath = redirectConf.basepath || "/";
       var g = this;
 
       conf.redirects.forEach(function (item) {
