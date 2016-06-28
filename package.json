@@ -6,14 +6,14 @@
     "engines": {
         "gitbook": ">=3.0.0-pre.0"
     },
-    "homepage": "https://github.com/kaustavdm/gitbook-plugin-bulk-redirect",
+    "homepage": "https://github.com/getgauge-contrib/gitbook-plugin-bulk-redirect",
     "repository": {
         "type": "git",
-        "url": "https://github.com/kaustavdm/gitbook-plugin-bulk-redirect.git"
+        "url": "https://github.com/getgauge-contrib/gitbook-plugin-bulk-redirect.git"
     },
     "license": "Apache-2.0",
     "bugs": {
-        "url": "https://github.com/kaustavdm/gitbook-plugin-bulk-redirect/issues"
+        "url": "https://github.com/getgauge-contrib/gitbook-plugin-bulk-redirect/issues"
     },
     "keywords": [
         "gitbook",
