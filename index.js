@@ -35,6 +35,7 @@ module.exports = {
       var conf = JSON.parse(fs.readFileSync(redirectConf.redirectsFile, "utf-8"));
 
       if (!conf || !conf.redirects) return;
+      if (this.isLanguageBook()) return;
 
       var basepath = redirectConf.basepath || "/";
       var g = this;
