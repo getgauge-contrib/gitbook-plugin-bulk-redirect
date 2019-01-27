@@ -37,7 +37,7 @@ module.exports = {
       if (!conf || !conf.redirects) return;
       if (this.isLanguageBook()) return;
 
-      var basepath = redirectConf.basepath || "/";
+      var basepath = redirectConf.basepath === undefined ? "/" : redirectConf.basepath
       var g = this;
 
       conf.redirects.forEach(function (item) {
