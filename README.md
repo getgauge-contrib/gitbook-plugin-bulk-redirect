@@ -73,3 +73,18 @@ Each object in the `redirects` array has 2 important keys: `from` and `to`.
 
 
 This will create the pages `oldpage.html` and `olddir/oldpage.html` in the output and they will redirect to `/newpage.html` and `/newdir/newpage.html` respectively.
+
+Folder redirect also possible:
+
+```json
+{
+    "redirects": [
+        {
+            "from": "somepage/",
+            "to": "somepage.html"
+        }
+    ]
+}
+```
+
+This will create a page `somepage/index.html`, that will redirect to `somepage.html`.
