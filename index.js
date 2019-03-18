@@ -42,8 +42,13 @@ module.exports = {
 
       conf.redirects.forEach(function (item) {
         if (!item.from || !item.to) return;
-        var resolved = url.resolve(basepath, item.to);
-        g.output.writeFile(item.from, content(resolved));
+        if (item.from.endsWith('/')) {
+          var resolved = url.resolve(basepath, '/../' + item.to);
+          g.output.writeFile(item.from + '/index.html', content(resolved));
+        } else {
+          var resolved = url.resolve(basepath, item.to);
+          g.output.writeFile(item.from, content(resolved));
+        }
         g.log.debug("Redirect " + item.from + " -> " + resolved + "\n");
       });
     }
