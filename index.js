@@ -17,13 +17,19 @@
 var url = require("url");
 var fs = require("fs");
 
-var content = function(path) {
-  var s = "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>Redirecting... Page moved</title>" +
-        "<link rel='canonical' href='{}'><meta http-equiv=refresh content='0; url={:?}'></head>" +
-        "<body><h1>Redirecting... Page moved...</h1>" +
-        "<p><a href='{}'>Click here if you are not redirected</a></p>" +
-        "<script>window.location.href='{}';</script>" +
-        "</body></html>";
+var content = function(path, blank) {
+  if (blank) {
+    var s = "<!DOCTYPE HTML><html><head><meta charset='UTF-8'>" +
+          "<link rel='canonical' href='{}'><meta http-equiv=refresh content='0; url={:?}'>" +
+          "<script>window.location.href='{}'</script></head></html>";
+  } else {
+    var s = "<!DOCTYPE HTML><html><head><meta charset='UTF-8'>" +
+          "<link rel='canonical' href='{}'><meta http-equiv=refresh content='0; url={:?}'></head>" +
+          "<body><h1>Redirecting... Page moved...</h1>" +
+          "<p><a href='{}'>Click here if you are not redirected</a></p>" +
+          "<script>window.location.href='{}';</script>" +
+          "</body></html>";
+  }
   return s.replace(/\{\}/gm, path).replace(/\{\:\?\}/gm, encodeURI(path));
 };
 
@@ -44,10 +50,10 @@ module.exports = {
         if (!item.from || !item.to) return;
         if (item.from.endsWith('/')) {
           var resolved = url.resolve(basepath, '/../' + item.to);
-          g.output.writeFile(item.from + '/index.html', content(resolved));
+          g.output.writeFile(item.from + '/index.html', content(resolved, redirectConf.blank));
         } else {
           var resolved = url.resolve(basepath, item.to);
-          g.output.writeFile(item.from, content(resolved));
+          g.output.writeFile(item.from, content(resolved, redirectConf.blank));
         }
         g.log.debug("Redirect " + item.from + " -> " + resolved + "\n");
       });
