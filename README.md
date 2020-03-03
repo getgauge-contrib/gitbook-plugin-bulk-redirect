@@ -22,6 +22,7 @@ Configuration for this plugin is specified in `book.json` in the `pluginsConfig`
 "pluginsConfig": {
     "bulk-redirect": {
         "basepath": "/",
+        "blank": false,
         "redirectsFile": "redirects.json"
     }
 }
@@ -44,10 +45,13 @@ If the book is hosted at the root of the domain, e.g. `http://example.com/`, the
 }
 ```
 
+### blank
 
-### `redirects` in redirects.json 
+Setting this parameter to true will leave your redirect pages blank and untitled (no "Click here if you are not redirected" link).
 
-The `redirects` contains an array of objects. This array should be present in another file. This relative path of this file should be passed in the `redirectsFile` field.  
+### `redirects` in redirects.json
+
+The `redirects` contains an array of objects. This array should be present in another file. This relative path of this file should be passed in the `redirectsFile` field.
 
 Each object in the `redirects` array has 2 important keys: `from` and `to`.
 
@@ -73,3 +77,18 @@ Each object in the `redirects` array has 2 important keys: `from` and `to`.
 
 
 This will create the pages `oldpage.html` and `olddir/oldpage.html` in the output and they will redirect to `/newpage.html` and `/newdir/newpage.html` respectively.
+
+Folder redirect also possible:
+
+```json
+{
+    "redirects": [
+        {
+            "from": "somepage/",
+            "to": "somepage.html"
+        }
+    ]
+}
+```
+
+This will create a page `somepage/index.html`, that will redirect to `somepage.html`.
